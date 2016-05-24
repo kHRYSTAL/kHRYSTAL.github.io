@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>造轮子</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-05-24T19:56:03.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>kHRYSTAL</name>
+    <email>723526676@q.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>换地方了</title>
+    <link href="http://yoursite.com/2016/05/25/20150525/"/>
+    <id>http://yoursite.com/2016/05/25/20150525/</id>
+    <published>2016-05-24T16:21:05.000Z</published>
+    <updated>2016-05-24T19:56:03.000Z</updated>
+    
+    <content type="html">&lt;p&gt;我最终还是开github pages了&lt;/p&gt;
+&lt;h3 id=&quot;自从狗日的百度把空间关了以后，就没好好写过博客了。&quot;&gt;&lt;a href=&quot;#自从狗日的百度把空间关了以后，就没好好写过博客了。&quot; class=&quot;headerlink&quot; title=&quot;自从狗日的百度把空间关了以后，就没好好写过博客了。&quot;&gt;&lt;/a&gt;自从狗日的百度把空间关了以后，就没好好写过博客了。&lt;/h3&gt;&lt;p&gt;当然在这也不一定会一直写，说不定哪天被墙了呢。。&lt;br&gt;不想挂着github.io，还得他妈的买个域名&lt;br&gt;还得改css什么的，我也是闲的蛋疼。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我最终还是开github pages了&lt;/p&gt;
+&lt;h3 id=&quot;自从狗日的百度把空间关了以后，就没好好写过博客了。&quot;&gt;&lt;a href=&quot;#自从狗日的百度把空间关了以后，就没好好写过博客了。&quot; class=&quot;headerlink&quot; title=&quot;自从狗日的百度把空间关了以后，
+    
+    </summary>
+    
+      <category term="扯蛋" scheme="http://yoursite.com/categories/%E6%89%AF%E8%9B%8B/"/>
+    
+    
+      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>
