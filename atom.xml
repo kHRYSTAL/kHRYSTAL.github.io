@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://baladuu.com/"/>
   <updated>2016-05-25T02:06:02.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://baladuu.com/</id>
   
   <author>
     <name>kHRYSTAL</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>换地方了</title>
-    <link href="http://yoursite.com/2016/05/25/20150525/"/>
-    <id>http://yoursite.com/2016/05/25/20150525/</id>
+    <link href="http://baladuu.com/2016/05/25/20150525/"/>
+    <id>http://baladuu.com/2016/05/25/20150525/</id>
     <published>2016-05-24T16:21:05.000Z</published>
     <updated>2016-05-25T02:06:02.000Z</updated>
     
@@ -35,10 +35,10 @@
     
     </summary>
     
-      <category term="扯蛋" scheme="http://yoursite.com/categories/%E6%89%AF%E8%9B%8B/"/>
+      <category term="扯蛋" scheme="http://baladuu.com/categories/%E6%89%AF%E8%9B%8B/"/>
     
     
-      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
+      <category term="随笔" scheme="http://baladuu.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
