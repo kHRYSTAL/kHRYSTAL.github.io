@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2016-05-25T06:40:21.000Z</updated>
+  <updated>2016-05-29T17:39:59.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -16,9 +16,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>AndroidCoroutine</title>
+    <link href="http://baladuu.com/2016/05/30/20160530/"/>
+    <id>http://baladuu.com/2016/05/30/20160530/</id>
+    <published>2016-05-29T17:17:24.000Z</published>
+    <updated>2016-05-29T17:39:59.000Z</updated>
+    
+    <content type="html">&lt;p&gt;闲的蛋疼 准备写个协程的库 先把仓库开了 慢慢研究慢慢写吧&lt;br&gt;不过貌似协程在客户端上需求也不大 而且可能又是造Kilim的轮子&lt;/p&gt;
+&lt;p&gt;目的:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对象的方法内部可中断 同时执行内部其他方法或其他对象方法能够将中断时数据保存，并能够恢复&lt;/li&gt;
+&lt;li&gt;不使用锁的生产者－消费者模式&lt;/li&gt;
+&lt;li&gt;类似generator，能够yield，break，continue&lt;/li&gt;
+&lt;li&gt;能够判断是否完成 提供抽象公共对象&lt;/li&gt;
+&lt;li&gt;参考Kilim的Scheduler&lt;/li&gt;
+&lt;li&gt;提供线程控制者&lt;/li&gt;
+&lt;li&gt;减少线程频繁切换&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;##当然，也不一定会写&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;闲的蛋疼 准备写个协程的库 先把仓库开了 慢慢研究慢慢写吧&lt;br&gt;不过貌似协程在客户端上需求也不大 而且可能又是造Kilim的轮子&lt;/p&gt;
+&lt;p&gt;目的:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对象的方法内部可中断 同时执行内部其他方法或其他对象方法能够将中断时数据保存，并能够恢复&lt;/l
+    
+    </summary>
+    
+      <category term="Android" scheme="http://baladuu.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://baladuu.com/tags/Android/"/>
+    
+      <category term="开发" scheme="http://baladuu.com/tags/%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>试下外链</title>
-    <link href="http://baladuu.com/2016/05/25/20150526/"/>
-    <id>http://baladuu.com/2016/05/25/20150526/</id>
+    <link href="http://baladuu.com/2016/05/25/20160526/"/>
+    <id>http://baladuu.com/2016/05/25/20160526/</id>
     <published>2016-05-25T06:39:21.000Z</published>
     <updated>2016-05-25T06:40:21.000Z</updated>
     
@@ -39,8 +78,8 @@
   
   <entry>
     <title>换地方了</title>
-    <link href="http://baladuu.com/2016/05/25/20150525/"/>
-    <id>http://baladuu.com/2016/05/25/20150525/</id>
+    <link href="http://baladuu.com/2016/05/25/20160525/"/>
+    <id>http://baladuu.com/2016/05/25/20160525/</id>
     <published>2016-05-24T16:21:05.000Z</published>
     <updated>2016-05-25T02:06:02.000Z</updated>
     
