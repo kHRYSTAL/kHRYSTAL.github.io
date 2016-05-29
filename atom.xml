@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2016-05-29T17:39:59.000Z</updated>
+  <updated>2016-05-29T17:41:40.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://baladuu.com/2016/05/30/20160530/"/>
     <id>http://baladuu.com/2016/05/30/20160530/</id>
     <published>2016-05-29T17:17:24.000Z</published>
-    <updated>2016-05-29T17:39:59.000Z</updated>
+    <updated>2016-05-29T17:41:40.000Z</updated>
     
     <content type="html">&lt;p&gt;闲的蛋疼 准备写个协程的库 先把仓库开了 慢慢研究慢慢写吧&lt;br&gt;不过貌似协程在客户端上需求也不大 而且可能又是造Kilim的轮子&lt;/p&gt;
 &lt;p&gt;目的:&lt;/p&gt;
@@ -33,8 +33,7 @@
 &lt;li&gt;提供线程控制者&lt;/li&gt;
 &lt;li&gt;减少线程频繁切换&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;##当然，也不一定会写&lt;/p&gt;
-</content>
+&lt;h2 id=&quot;当然，也不一定会写&quot;&gt;&lt;a href=&quot;#当然，也不一定会写&quot; class=&quot;headerlink&quot; title=&quot;当然，也不一定会写&quot;&gt;&lt;/a&gt;当然，也不一定会写&lt;/h2&gt;</content>
     
     <summary type="html">
     
