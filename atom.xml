@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2016-05-29T17:41:40.000Z</updated>
+  <updated>2016-06-04T03:48:39.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -16,11 +16,62 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>awesome-python3-webapp</title>
+    <link href="http://baladuu.com/2016/06/04/20160604/"/>
+    <id>http://baladuu.com/2016/06/04/20160604/</id>
+    <published>2016-06-04T03:44:36.000Z</published>
+    <updated>2016-06-04T03:48:39.000Z</updated>
+    
+    <content type="html">&lt;p&gt;###跟着&lt;a href=&quot;http://www.liaoxuefeng.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;@廖雪峰&lt;/a&gt;老师从头学了一遍python3&lt;br&gt;4天时间做了后面的实例，受益匪浅&lt;/p&gt;
+&lt;p&gt;如果单纯的使用RESTfulAPI 用这个框架完全没有问题&lt;/p&gt;
+&lt;p&gt;不过有些偏低层了&lt;/p&gt;
+&lt;p&gt;完全用协程和aiohttp，aiomysql封装后台&lt;/p&gt;
+&lt;p&gt;jinja2，uikit做前台&lt;/p&gt;
+&lt;p&gt;部署脚本太好用了&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/kHRYSTAL/awesome_python3_webapp&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;项目地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://182.92.199.62/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;线上地址&lt;/a&gt;&lt;br&gt;(就买了一个月的阿里云)&lt;/p&gt;
+&lt;p&gt;不过也踩到了很多坑 比如3.5之前不支持&lt;code&gt;async&lt;/code&gt;,&lt;code&gt;await&lt;/code&gt;关键字&lt;br&gt;部署时发现版本是3.4临时改成了&lt;code&gt;@asyncio.coroutine&lt;/code&gt;和&lt;code&gt;yield from&lt;/code&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;###今天踩过的坑 都是曾经脑子里进的水&lt;br&gt;希望以后脑子不要进水了&lt;/p&gt;
+&lt;p&gt;开始重新学&lt;code&gt;Django&lt;/code&gt; 放首最近循环的歌&lt;/p&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=2&amp;id=5055329&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;
+
+
+
+
+
+
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;###跟着&lt;a href=&quot;http://www.liaoxuefeng.com/&quot;&gt;@廖雪峰&lt;/a&gt;老师从头学了一遍python3&lt;br&gt;4天时间做了后面的实例，受益匪浅&lt;/p&gt;
+&lt;p&gt;如果单纯的使用RESTfulAPI 用这个框架完全没有问题&lt;/p&gt;
+&lt;p&gt;不过有些偏低层了&lt;/p&gt;
+&lt;p&gt;完全用协程和aiohttp，aiomysql封装后台&lt;/p&gt;
+&lt;p&gt;jinja2，uikit做前台&lt;/p&gt;
+&lt;p&gt;部署脚本太好用了&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/kHRYSTAL/awesome_python3_webapp&quot;&gt;项目地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://182.92.199.62/&quot;&gt;线上地址&lt;/a&gt;&lt;br&gt;(就买了一个月的阿里云)&lt;/p&gt;
+&lt;p&gt;不过也踩到了很多坑 比如3.5之前不支持&lt;code&gt;async&lt;/code&gt;,&lt;code&gt;await&lt;/code&gt;关键字&lt;br&gt;部署时发现版本是3.4临时改成了&lt;code&gt;@asyncio.coroutine&lt;/code&gt;和&lt;code&gt;yield from&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="python" scheme="http://baladuu.com/categories/python/"/>
+    
+    
+      <category term="music" scheme="http://baladuu.com/tags/music/"/>
+    
+      <category term="python" scheme="http://baladuu.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>AndroidCoroutine</title>
     <link href="http://baladuu.com/2016/05/30/20160530/"/>
     <id>http://baladuu.com/2016/05/30/20160530/</id>
     <published>2016-05-29T17:17:24.000Z</published>
-    <updated>2016-05-29T17:41:40.000Z</updated>
+    <updated>2016-06-04T03:47:53.000Z</updated>
     
     <content type="html">&lt;p&gt;闲的蛋疼 准备写个协程的库 先把仓库开了 慢慢研究慢慢写吧&lt;br&gt;不过貌似协程在客户端上需求也不大 而且可能又是造Kilim的轮子&lt;/p&gt;
 &lt;p&gt;目的:&lt;/p&gt;
@@ -49,29 +100,31 @@
     
       <category term="Android" scheme="http://baladuu.com/tags/Android/"/>
     
-      <category term="开发" scheme="http://baladuu.com/tags/%E5%BC%80%E5%8F%91/"/>
+      <category term="program" scheme="http://baladuu.com/tags/program/"/>
     
   </entry>
   
   <entry>
-    <title>试下外链</title>
+    <title>Goddess On a Highway</title>
     <link href="http://baladuu.com/2016/05/25/20160526/"/>
     <id>http://baladuu.com/2016/05/25/20160526/</id>
     <published>2016-05-25T06:39:21.000Z</published>
-    <updated>2016-05-25T06:40:21.000Z</updated>
+    <updated>2016-06-04T04:04:59.000Z</updated>
     
-    <content type="html">&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=2&amp;id=21251719&amp;auto=0&amp;height=66&quot;&gt;&lt;/iframe&gt;</content>
+    <content type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=2&amp;id=21251719&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;</content>
     
     <summary type="html">
     
-      &lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=
+      &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/out
     
     </summary>
     
-      <category term="音乐" scheme="http://baladuu.com/categories/%E9%9F%B3%E4%B9%90/"/>
+      <category term="music" scheme="http://baladuu.com/categories/music/"/>
     
     
-      <category term="音乐" scheme="http://baladuu.com/tags/%E9%9F%B3%E4%B9%90/"/>
+      <category term="music" scheme="http://baladuu.com/tags/music/"/>
     
   </entry>
   
@@ -80,7 +133,7 @@
     <link href="http://baladuu.com/2016/05/25/20160525/"/>
     <id>http://baladuu.com/2016/05/25/20160525/</id>
     <published>2016-05-24T16:21:05.000Z</published>
-    <updated>2016-05-25T02:06:02.000Z</updated>
+    <updated>2016-06-04T03:47:32.000Z</updated>
     
     <content type="html">&lt;p&gt;&lt;img src=&quot;http://7xujzs.com1.z0.glb.clouddn.com/001.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;我最终还是开github pages了&lt;/p&gt;
@@ -95,10 +148,10 @@
     
     </summary>
     
-      <category term="扯蛋" scheme="http://baladuu.com/categories/%E6%89%AF%E8%9B%8B/"/>
+      <category term="essay" scheme="http://baladuu.com/categories/essay/"/>
     
     
-      <category term="随笔" scheme="http://baladuu.com/tags/%E9%9A%8F%E7%AC%94/"/>
+      <category term="essay" scheme="http://baladuu.com/tags/essay/"/>
     
   </entry>
   
