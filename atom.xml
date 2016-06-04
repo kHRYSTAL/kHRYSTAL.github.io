@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2016-06-04T03:48:39.000Z</updated>
+  <updated>2016-06-04T04:25:08.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://baladuu.com/2016/06/04/20160604/"/>
     <id>http://baladuu.com/2016/06/04/20160604/</id>
     <published>2016-06-04T03:44:36.000Z</published>
-    <updated>2016-06-04T03:48:39.000Z</updated>
+    <updated>2016-06-04T04:25:08.000Z</updated>
     
-    <content type="html">&lt;p&gt;###跟着&lt;a href=&quot;http://www.liaoxuefeng.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;@廖雪峰&lt;/a&gt;老师从头学了一遍python3&lt;br&gt;4天时间做了后面的实例，受益匪浅&lt;/p&gt;
+    <content type="html">&lt;h3 id=&quot;跟着-廖雪峰老师从头学了一遍python3&quot;&gt;&lt;a href=&quot;#跟着-廖雪峰老师从头学了一遍python3&quot; class=&quot;headerlink&quot; title=&quot;跟着@廖雪峰老师从头学了一遍python3&quot;&gt;&lt;/a&gt;跟着&lt;a href=&quot;http://www.liaoxuefeng.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;@廖雪峰&lt;/a&gt;老师从头学了一遍python3&lt;/h3&gt;&lt;p&gt;4天时间做了后面的实例，受益匪浅&lt;/p&gt;
 &lt;p&gt;如果单纯的使用RESTfulAPI 用这个框架完全没有问题&lt;/p&gt;
 &lt;p&gt;不过有些偏低层了&lt;/p&gt;
 &lt;p&gt;完全用协程和aiohttp，aiomysql封装后台&lt;/p&gt;
@@ -32,7 +32,7 @@
 &lt;p&gt;&lt;a href=&quot;http://182.92.199.62/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;线上地址&lt;/a&gt;&lt;br&gt;(就买了一个月的阿里云)&lt;/p&gt;
 &lt;p&gt;不过也踩到了很多坑 比如3.5之前不支持&lt;code&gt;async&lt;/code&gt;,&lt;code&gt;await&lt;/code&gt;关键字&lt;br&gt;部署时发现版本是3.4临时改成了&lt;code&gt;@asyncio.coroutine&lt;/code&gt;和&lt;code&gt;yield from&lt;/code&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;###今天踩过的坑 都是曾经脑子里进的水&lt;br&gt;希望以后脑子不要进水了&lt;/p&gt;
+&lt;h3 id=&quot;今天踩过的坑-都是曾经脑子里进的水&quot;&gt;&lt;a href=&quot;#今天踩过的坑-都是曾经脑子里进的水&quot; class=&quot;headerlink&quot; title=&quot;今天踩过的坑 都是曾经脑子里进的水&quot;&gt;&lt;/a&gt;今天踩过的坑 都是曾经脑子里进的水&lt;/h3&gt;&lt;p&gt;希望以后脑子不要进水了&lt;/p&gt;
 &lt;p&gt;开始重新学&lt;code&gt;Django&lt;/code&gt; 放首最近循环的歌&lt;/p&gt;
 &lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=2&amp;id=5055329&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;
 
@@ -45,7 +45,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;###跟着&lt;a href=&quot;http://www.liaoxuefeng.com/&quot;&gt;@廖雪峰&lt;/a&gt;老师从头学了一遍python3&lt;br&gt;4天时间做了后面的实例，受益匪浅&lt;/p&gt;
+      &lt;h3 id=&quot;跟着-廖雪峰老师从头学了一遍python3&quot;&gt;&lt;a href=&quot;#跟着-廖雪峰老师从头学了一遍python3&quot; class=&quot;headerlink&quot; title=&quot;跟着@廖雪峰老师从头学了一遍python3&quot;&gt;&lt;/a&gt;跟着&lt;a href=&quot;http://www.liaoxuefeng.com/&quot;&gt;@廖雪峰&lt;/a&gt;老师从头学了一遍python3&lt;/h3&gt;&lt;p&gt;4天时间做了后面的实例，受益匪浅&lt;/p&gt;
 &lt;p&gt;如果单纯的使用RESTfulAPI 用这个框架完全没有问题&lt;/p&gt;
 &lt;p&gt;不过有些偏低层了&lt;/p&gt;
 &lt;p&gt;完全用协程和aiohttp，aiomysql封装后台&lt;/p&gt;
