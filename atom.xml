@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2016-07-15T09:12:40.000Z</updated>
+  <updated>2016-09-13T05:03:17.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -14,6 +14,79 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android so文件冲突与缺失解决</title>
+    <link href="http://baladuu.com/2016/09/13/20160913/"/>
+    <id>http://baladuu.com/2016/09/13/20160913/</id>
+    <published>2016-09-13T04:00:18.000Z</published>
+    <updated>2016-09-13T05:03:17.000Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;项目文件&quot;&gt;&lt;a href=&quot;#项目文件&quot; class=&quot;headerlink&quot; title=&quot;项目文件&quot;&gt;&lt;/a&gt;项目文件&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;高德地图 &lt;/p&gt;
+&lt;p&gt;  高德地图so并不是全平台的 只有armeabi文件夹 其中3D地图so文件可以按32位 64位放到其他平台文件夹中&lt;br&gt;  但是导航只能放到armeabi中(官方文档说明)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;极光推送&lt;/p&gt;
+&lt;p&gt;  极光推送so为全平台    &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;融云&lt;/p&gt;
+&lt;p&gt;  融云so为全平台&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;问题复现-测试机器三星s6&quot;&gt;&lt;a href=&quot;#问题复现-测试机器三星s6&quot; class=&quot;headerlink&quot; title=&quot;问题复现 测试机器三星s6&quot;&gt;&lt;/a&gt;问题复现 测试机器三星s6&lt;/h4&gt;&lt;p&gt;不考虑 x86(模拟器) mips(平板)架构前提下, 单只说armeabi。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;若遵循最少原则 只保留armeabi文件夹，按理说应该64位兼容32位，但是在64位机型编译后直接报错找不到jpush。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;当把3D地图 导航拷贝到v7-a v8-a文件夹后，再次编译 报jpush.service.n.b()报空指针 不能启动极光PushService。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;若去掉高德sdk,保留极光推送与融云SDK正常。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;若只保留高德sdk,导航在armeabi下正常 拷贝到armeabi-v7a -v8a 导航错误 3D地图正常。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;若只去掉融云，保留高德与jpush，同1。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;原因分析&quot;&gt;&lt;a href=&quot;#原因分析&quot; class=&quot;headerlink&quot; title=&quot;原因分析&quot;&gt;&lt;/a&gt;原因分析&lt;/h4&gt;&lt;p&gt;排除融云出现冲突问题,可能导致问题发生的原因有:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;jpush 与 高德地图 文件或函数冲突&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;jpush 32位 so文件与 64位机型不兼容&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;解决办法&quot;&gt;&lt;a href=&quot;#解决办法&quot; class=&quot;headerlink&quot; title=&quot;解决办法&quot;&gt;&lt;/a&gt;解决办法&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;通过原因1测试.将高德地图导航so文件动态编译 放到assets下运行时通过文件流读取 进行初始化&lt;br&gt;问题1复现 问题未解决 此原因排除。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;通过原因2测试.在defaultConfig中强制将所有架构需要编译so指向armeabi，且只保留armeabi文件夹&lt;br&gt;问题解决 armeabi 64位机型测试融云正常,jpush正常,导航正常。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;解决代码&quot;&gt;&lt;a href=&quot;#解决代码&quot; class=&quot;headerlink&quot; title=&quot;解决代码&quot;&gt;&lt;/a&gt;解决代码&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;app/build.gradle&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;android &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    defaultConfig &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ndk &amp;#123;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        	abiFilters &amp;quot;armeabi&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ｝&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;gradle.properties&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;android.useDeprecatedNdk=true&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;em&gt;顺便测了leancloud IM +push 与高德没有冲突 但是从9月1日开始定量收费&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;如果有更好解决方式或理解错误请回复和指正 谢谢&lt;/em&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;项目文件&quot;&gt;&lt;a href=&quot;#项目文件&quot; class=&quot;headerlink&quot; title=&quot;项目文件&quot;&gt;&lt;/a&gt;项目文件&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;高德地图 &lt;/p&gt;
+&lt;p&gt;  高德地图so并不是全平台的 只有armeabi文件夹 其中3D地图so文件可
+    
+    </summary>
+    
+      <category term="Android" scheme="http://baladuu.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://baladuu.com/tags/Android/"/>
+    
+      <category term="bug fixed" scheme="http://baladuu.com/tags/bug-fixed/"/>
+    
+  </entry>
   
   <entry>
     <title>android上进行https请求</title>
@@ -92,9 +165,9 @@
       <category term="python" scheme="http://baladuu.com/categories/python/"/>
     
     
-      <category term="music" scheme="http://baladuu.com/tags/music/"/>
-    
       <category term="python" scheme="http://baladuu.com/tags/python/"/>
+    
+      <category term="music" scheme="http://baladuu.com/tags/music/"/>
     
   </entry>
   
