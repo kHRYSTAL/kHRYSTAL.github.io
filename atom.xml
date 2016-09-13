@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2016-09-13T05:03:17.000Z</updated>
+  <updated>2016-09-13T05:07:39.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://baladuu.com/2016/09/13/20160913/"/>
     <id>http://baladuu.com/2016/09/13/20160913/</id>
     <published>2016-09-13T04:00:18.000Z</published>
-    <updated>2016-09-13T05:03:17.000Z</updated>
+    <updated>2016-09-13T05:07:39.000Z</updated>
     
     <content type="html">&lt;h4 id=&quot;项目文件&quot;&gt;&lt;a href=&quot;#项目文件&quot; class=&quot;headerlink&quot; title=&quot;项目文件&quot;&gt;&lt;/a&gt;项目文件&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;高德地图 &lt;/p&gt;
@@ -46,6 +46,7 @@
 &lt;li&gt;&lt;p&gt;若只去掉融云，保留高德与jpush，同1。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;    
 &lt;h4 id=&quot;原因分析&quot;&gt;&lt;a href=&quot;#原因分析&quot; class=&quot;headerlink&quot; title=&quot;原因分析&quot;&gt;&lt;/a&gt;原因分析&lt;/h4&gt;&lt;p&gt;排除融云出现冲突问题,可能导致问题发生的原因有:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;jpush 与 高德地图 文件或函数冲突&lt;/p&gt;
@@ -75,7 +76,28 @@
     
       &lt;h4 id=&quot;项目文件&quot;&gt;&lt;a href=&quot;#项目文件&quot; class=&quot;headerlink&quot; title=&quot;项目文件&quot;&gt;&lt;/a&gt;项目文件&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;高德地图 &lt;/p&gt;
-&lt;p&gt;  高德地图so并不是全平台的 只有armeabi文件夹 其中3D地图so文件可
+&lt;p&gt;  高德地图so并不是全平台的 只有armeabi文件夹 其中3D地图so文件可以按32位 64位放到其他平台文件夹中&lt;br&gt;  但是导航只能放到armeabi中(官方文档说明)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;极光推送&lt;/p&gt;
+&lt;p&gt;  极光推送so为全平台    &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;融云&lt;/p&gt;
+&lt;p&gt;  融云so为全平台&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;问题复现-测试机器三星s6&quot;&gt;&lt;a href=&quot;#问题复现-测试机器三星s6&quot; class=&quot;headerlink&quot; title=&quot;问题复现 测试机器三星s6&quot;&gt;&lt;/a&gt;问题复现 测试机器三星s6&lt;/h4&gt;&lt;p&gt;不考虑 x86(模拟器) mips(平板)架构前提下, 单只说armeabi。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;若遵循最少原则 只保留armeabi文件夹，按理说应该64位兼容32位，但是在64位机型编译后直接报错找不到jpush。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;当把3D地图 导航拷贝到v7-a v8-a文件夹后，再次编译 报jpush.service.n.b()报空指针 不能启动极光PushService。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;若去掉高德sdk,保留极光推送与融云SDK正常。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;若只保留高德sdk,导航在armeabi下正常 拷贝到armeabi-v7a -v8a 导航错误 3D地图正常。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;若只去掉融云，保留高德与jpush，同1。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
     
     </summary>
     
@@ -93,11 +115,12 @@
     <link href="http://baladuu.com/2016/07/15/20160715/"/>
     <id>http://baladuu.com/2016/07/15/20160715/</id>
     <published>2016-07-15T08:16:54.000Z</published>
-    <updated>2016-07-15T09:12:40.000Z</updated>
+    <updated>2016-09-13T05:10:46.000Z</updated>
     
     <content type="html">&lt;p&gt;最近接了个活，比较坑。老版本项目没有客户端且后台数据库是GBK2312的&lt;br&gt;好不容易填完坑以后又说要改成https还是自签名要验证的(要我说都忽略了屁事也没有，但还是得办人事不是？)&lt;/p&gt;
 &lt;p&gt;之前用HttpUrlConnection自己封装了个HttpUtil 支持post， get，文件上传什么的 本来想按着hongyang的&lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/48129405&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇文章&lt;/a&gt; 改成OkHttp的 但还是懒 决定还是用 HttpUrlConnection 网上查了很多&lt;br&gt;最后总结出来以下代码&lt;/p&gt;
 &lt;h4 id=&quot;第一步-获取密钥库&quot;&gt;&lt;a href=&quot;#第一步-获取密钥库&quot; class=&quot;headerlink&quot; title=&quot;第一步 获取密钥库&quot;&gt;&lt;/a&gt;第一步 获取密钥库&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//创建密钥库， 并将读取的证书导入密钥库 支持字符串导入 这里写的是文件路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//KeyStore不支持JKS类型 已试验 PKCS12 没问题&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//load 第二个参数是密码 这里设置的为null&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;AssetManager am = context.getAssets();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;InputStream ins = am.open(&amp;quot;cepath&amp;quot;);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;InputStream ins = null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ins = am.open(&amp;quot;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            CertificateFactory cerFactory = CertificateFactory.getInstance(&amp;quot;X.509&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Certificate cer = cerFactory.generateCertificate(ins);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            KeyStore keyStore = KeyStore.getInstance(&amp;quot;PKCS12&amp;quot;, &amp;quot;BC&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            keyStore.load(null, null);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            keyStore.setCertificateEntry(&amp;quot;trust&amp;quot;, cer);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            return keyStore;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; catch (Exception e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; finally &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ins.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h4 id=&quot;第二步-获取SSL工厂&quot;&gt;&lt;a href=&quot;#第二步-获取SSL工厂&quot; class=&quot;headerlink&quot; title=&quot;第二步 获取SSL工厂&quot;&gt;&lt;/a&gt;第二步 获取SSL工厂&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;KeyManagerFactory keyManagerFactory = KeyManagerFactory&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                .getInstance(KeyManagerFactory.getDefaultAlgorithm());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;keyManagerFactory.init(keyStore,null);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;TrustManagerFactory trustManagerFactory = TrustManagerFactory&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                .getInstance(TrustManagerFactory.getDefaultAlgorithm());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//初始化信任库 使用的也是之前的密钥                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;trustManagerFactory.init(keyStore);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SSLContext sslCtx = SSLContext.getInstance(&amp;quot;TLS&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sslCtx.init(keyManagerFactory.getKeyManagers(),trustManagerFactory.getTrustManagers(), null);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h4 id=&quot;第三步-配置主机验证接口&quot;&gt;&lt;a href=&quot;#第三步-配置主机验证接口&quot; class=&quot;headerlink&quot; title=&quot;第三步 配置主机验证接口&quot;&gt;&lt;/a&gt;第三步 配置主机验证接口&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;private class CustomHostnameVerifier implements HostnameVerifier&amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;               &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         @Override  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         public boolean verify(String hostname, SSLSession session) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                //这里配置验证规则 true验证成功 false失败 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                return true;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h4 id=&quot;第四步-配置HttpUrlConnection&quot;&gt;&lt;a href=&quot;#第四步-配置HttpUrlConnection&quot; class=&quot;headerlink&quot; title=&quot;第四步 配置HttpUrlConnection&quot;&gt;&lt;/a&gt;第四步 配置HttpUrlConnection&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;HttpsURLConnection.setDefaultSSLSocketFactory(sslContext&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    .getSocketFactory());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HttpsURLConnection.setDefaultHostnameVerifier(new CustomHostnameVerifier());&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -107,7 +130,8 @@
     <summary type="html">
     
       &lt;p&gt;最近接了个活，比较坑。老版本项目没有客户端且后台数据库是GBK2312的&lt;br&gt;好不容易填完坑以后又说要改成https还是自签名要验证的(要我说都忽略了屁事也没有，但还是得办人事不是？)&lt;/p&gt;
-&lt;p&gt;之前用HttpUrlConnection自己封装了个HttpUtil 支
+&lt;p&gt;之前用HttpUrlConnection自己封装了个HttpUtil 支持post， get，文件上传什么的 本来想按着hongyang的&lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/48129405&quot;&gt;这篇文章&lt;/a&gt; 改成OkHttp的 但还是懒 决定还是用 HttpUrlConnection 网上查了很多&lt;br&gt;最后总结出来以下代码&lt;/p&gt;
+&lt;h4 id=&quot;第一步-获取密钥库&quot;&gt;&lt;a href=&quot;#第一步-获取密钥库&quot; class=&quot;headerlink&quot; title=&quot;第一步 获取密钥库&quot;&gt;&lt;/a&gt;第一步 获取密钥库&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//创建密钥库， 并将读取的证书导入密钥库 支持字符串导入 这里写的是文件路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//KeyStore不支持JKS类型 已试验 PKCS12 没问题&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//load 第二个参数是密码 这里设置的为null&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;AssetManager am = context.getAssets();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;InputStream ins = am.open(&amp;quot;cepath&amp;quot;);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;InputStream ins = null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ins = am.open(&amp;quot;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            CertificateFactory cerFactory = CertificateFactory.getInstance(&amp;quot;X.509&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Certificate cer = cerFactory.generateCertificate(ins);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            KeyStore keyStore = KeyStore.getInstance(&amp;quot;PKCS12&amp;quot;, &amp;quot;BC&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            keyStore.load(null, null);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            keyStore.setCertificateEntry(&amp;quot;trust&amp;quot;, cer);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            return keyStore;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; catch (Exception e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; finally &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ins.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -125,7 +149,7 @@
     <link href="http://baladuu.com/2016/06/04/20160604/"/>
     <id>http://baladuu.com/2016/06/04/20160604/</id>
     <published>2016-06-04T03:44:36.000Z</published>
-    <updated>2016-06-04T04:25:08.000Z</updated>
+    <updated>2016-09-13T05:10:59.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;跟着-廖雪峰老师从头学了一遍python3&quot;&gt;&lt;a href=&quot;#跟着-廖雪峰老师从头学了一遍python3&quot; class=&quot;headerlink&quot; title=&quot;跟着@廖雪峰老师从头学了一遍python3&quot;&gt;&lt;/a&gt;跟着&lt;a href=&quot;http://www.liaoxuefeng.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;@廖雪峰&lt;/a&gt;老师从头学了一遍python3&lt;/h3&gt;&lt;p&gt;4天时间做了后面的实例，受益匪浅&lt;/p&gt;
 &lt;p&gt;如果单纯的使用RESTfulAPI 用这个框架完全没有问题&lt;/p&gt;
@@ -138,14 +162,7 @@
 &lt;p&gt;不过也踩到了很多坑 比如3.5之前不支持&lt;code&gt;async&lt;/code&gt;,&lt;code&gt;await&lt;/code&gt;关键字&lt;br&gt;部署时发现版本是3.4临时改成了&lt;code&gt;@asyncio.coroutine&lt;/code&gt;和&lt;code&gt;yield from&lt;/code&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h3 id=&quot;今天踩过的坑-都是曾经脑子里进的水&quot;&gt;&lt;a href=&quot;#今天踩过的坑-都是曾经脑子里进的水&quot; class=&quot;headerlink&quot; title=&quot;今天踩过的坑 都是曾经脑子里进的水&quot;&gt;&lt;/a&gt;今天踩过的坑 都是曾经脑子里进的水&lt;/h3&gt;&lt;p&gt;希望以后脑子不要进水了&lt;/p&gt;
-&lt;p&gt;开始重新学&lt;code&gt;Django&lt;/code&gt; 放首最近循环的歌&lt;/p&gt;
-&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=2&amp;id=5055329&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;
-
-
-
-
-
-
+&lt;p&gt;开始重新学&lt;code&gt;Django&lt;/code&gt; &lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -165,9 +182,9 @@
       <category term="python" scheme="http://baladuu.com/categories/python/"/>
     
     
-      <category term="python" scheme="http://baladuu.com/tags/python/"/>
-    
       <category term="music" scheme="http://baladuu.com/tags/music/"/>
+    
+      <category term="python" scheme="http://baladuu.com/tags/python/"/>
     
   </entry>
   
@@ -210,19 +227,17 @@
   </entry>
   
   <entry>
-    <title>Goddess On a Highway</title>
+    <title>春风十里</title>
     <link href="http://baladuu.com/2016/05/25/20160526/"/>
     <id>http://baladuu.com/2016/05/25/20160526/</id>
     <published>2016-05-25T06:39:21.000Z</published>
-    <updated>2016-06-04T04:04:59.000Z</updated>
+    <updated>2016-09-13T05:09:43.000Z</updated>
     
-    <content type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=2&amp;id=21251719&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;</content>
+    <content type="html">&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=2&amp;id=38576323&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;</content>
     
     <summary type="html">
     
-      &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/out
+      &lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?type=
     
     </summary>
     
@@ -238,18 +253,17 @@
     <link href="http://baladuu.com/2016/05/25/20160525/"/>
     <id>http://baladuu.com/2016/05/25/20160525/</id>
     <published>2016-05-24T16:21:05.000Z</published>
-    <updated>2016-06-04T03:47:32.000Z</updated>
+    <updated>2016-09-13T05:11:47.000Z</updated>
     
     <content type="html">&lt;p&gt;&lt;img src=&quot;http://7xujzs.com1.z0.glb.clouddn.com/001.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;我最终还是开github pages了&lt;/p&gt;
-&lt;h3 id=&quot;自从狗日的百度把空间关了以后，就没好好写过博客了。&quot;&gt;&lt;a href=&quot;#自从狗日的百度把空间关了以后，就没好好写过博客了。&quot; class=&quot;headerlink&quot; title=&quot;自从狗日的百度把空间关了以后，就没好好写过博客了。&quot;&gt;&lt;/a&gt;自从狗日的百度把空间关了以后，就没好好写过博客了。&lt;/h3&gt;&lt;p&gt;当然在这也不一定会一直写，说不定哪天被墙了呢。。&lt;br&gt;不想挂着github.io，还得他妈的买个域名&lt;br&gt;还得改css什么的，我也是闲的蛋疼。&lt;/p&gt;
+&lt;p&gt;我最终还是开github pages了。百度空间再见&lt;/p&gt;
 </content>
     
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://7xujzs.com1.z0.glb.clouddn.com/001.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;我最终还是开github pages了&lt;/p&gt;
-&lt;h3 id=&quot;自从狗日的百度把空间关了以后，就没好好写过博客了。&quot;&gt;&lt;a hre
+&lt;p&gt;我最终还是开github pages了。百度空间再见&lt;/p&gt;
+
     
     </summary>
     
