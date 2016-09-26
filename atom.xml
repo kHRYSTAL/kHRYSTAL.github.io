@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2016-09-22T17:59:12.000Z</updated>
+  <updated>2016-09-26T15:54:12.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -20,58 +20,17 @@
     <link href="http://baladuu.com/2016/09/23/20160923/"/>
     <id>http://baladuu.com/2016/09/23/20160923/</id>
     <published>2016-09-22T17:53:40.000Z</published>
-    <updated>2016-09-22T17:59:12.000Z</updated>
+    <updated>2016-09-26T15:54:12.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;本文长期更新 始于微信小程序刺激本人学习React Native&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;首先介绍本人目前技能 方便看到这篇BLOG的同志们决定方向取舍&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;技能&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;程度&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Android&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;熟悉&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Python2/3&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;熟悉&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;HTML&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;熟悉&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;javascript&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;了解&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;nodejs&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;学习中&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Object-C/swift&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;不会&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;React Native&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;不会&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;了解是真的只是了解，熟悉程度也就是熟悉程度 :-)&lt;/p&gt;
-&lt;h3 id=&quot;学习原因&quot;&gt;&lt;a href=&quot;#学习原因&quot; class=&quot;headerlink&quot; title=&quot;学习原因&quot;&gt;&lt;/a&gt;学习原因&lt;/h3&gt;&lt;p&gt;今天被微信小程序刷屏了，下了0.9.0看了一下Demo结构和语法还算了解，某群说会React或者weex很容易上手，感觉就快要找不到工作了(虽然现在没工作)，所以开始学习React Native开发。&lt;/p&gt;
-&lt;h3 id=&quot;搭建环境-运行Demo-2016年9月23日&quot;&gt;&lt;a href=&quot;#搭建环境-运行Demo-2016年9月23日&quot; class=&quot;headerlink&quot; title=&quot;搭建环境 运行Demo 2016年9月23日&quot;&gt;&lt;/a&gt;搭建环境 运行Demo 2016年9月23日&lt;/h3&gt;&lt;p&gt;搭建环境参照&lt;a href=&quot;http://reactnative.cn/docs/0.31/getting-started.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇链接&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;搭建环境-运行Demo&quot;&gt;&lt;a href=&quot;#搭建环境-运行Demo&quot; class=&quot;headerlink&quot; title=&quot;搭建环境 运行Demo&quot;&gt;&lt;/a&gt;搭建环境 运行Demo&lt;/h3&gt;&lt;p&gt;搭建环境参照&lt;a href=&quot;http://reactnative.cn/docs/0.31/getting-started.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇链接&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;因为做 nodejs 微信后台和 android 很多东西都装过了&lt;/p&gt;
 &lt;p&gt;只需要装react-native-cli, flow, watchman&lt;/p&gt;
 &lt;p&gt;环境变量之前我配置过了&lt;/p&gt;
 &lt;p&gt;android studio里需要再下载这些&lt;br&gt;&lt;img src=&quot;http://7xujzs.com1.z0.glb.clouddn.com/QQ20160923-1@2x.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;因为我使用atom编辑器 所以也把Nuclide装上了&lt;/p&gt;
+&lt;p&gt;因为我使用atom编辑器 所以也把Nuclide装上了&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;按照教程建了个AwesomeProject项目&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;react-native init AwesomeProject&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd AwesomeProject&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;react-native run-android&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;执行报错 提示&lt;/p&gt;
@@ -90,12 +49,12 @@
       &lt;blockquote&gt;
 &lt;p&gt;本文长期更新 始于微信小程序刺激本人学习React Native&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;首先介绍本人目前技能 方便看到这篇BLOG的同志们决定方向取舍&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;技能&lt;/th&gt;
-&lt;
+&lt;h3 id=&quot;搭建环境-运行Demo&quot;&gt;&lt;a href=&quot;#搭建环境-运行Demo&quot; class=&quot;headerlink&quot; title=&quot;搭建环境 运行Demo&quot;&gt;&lt;/a&gt;搭建环境 运行Demo&lt;/h3&gt;&lt;p&gt;搭建环境参照&lt;a href=&quot;http://reactnative.cn/docs/0.31/getting-started.html&quot;&gt;这篇链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;因为做 nodejs 微信后台和 android 很多东西都装过了&lt;/p&gt;
+&lt;p&gt;只需要装react-native-cli, flow, watchman&lt;/p&gt;
+&lt;p&gt;环境变量之前我配置过了&lt;/p&gt;
+&lt;p&gt;android studio里需要再下载这些&lt;br&gt;&lt;img src=&quot;http://7xujzs.com1.z0.glb.clouddn.com/QQ20160923-1@2x.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;因为我使用atom编辑器 所以也把Nuclide装上了&lt;br&gt;
     
     </summary>
     
@@ -275,9 +234,9 @@
       <category term="python" scheme="http://baladuu.com/categories/python/"/>
     
     
-      <category term="music" scheme="http://baladuu.com/tags/music/"/>
-    
       <category term="python" scheme="http://baladuu.com/tags/python/"/>
+    
+      <category term="music" scheme="http://baladuu.com/tags/music/"/>
     
   </entry>
   
