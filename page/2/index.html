@@ -295,6 +295,139 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/15/20160715/" itemprop="url">
+                  android上进行https请求
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-15T16:16:54+08:00" content="2016-07-15">
+              2016-07-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/15/20160715/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/15/20160715/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/15/20160715/" class="leancloud_visitors" data-flag-title="android上进行https请求">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近接了个活，比较坑。老版本项目没有客户端且后台数据库是GBK2312的<br>好不容易填完坑以后又说要改成https还是自签名要验证的(要我说都忽略了屁事也没有，但还是得办人事不是？)</p>
+<p>之前用HttpUrlConnection自己封装了个HttpUtil 支持post， get，文件上传什么的 本来想按着hongyang的<a href="http://blog.csdn.net/lmj623565791/article/details/48129405">这篇文章</a> 改成OkHttp的 但还是懒 决定还是用 HttpUrlConnection 网上查了很多<br>最后总结出来以下代码</p>
+<h4 id="第一步-获取密钥库"><a href="#第一步-获取密钥库" class="headerlink" title="第一步 获取密钥库"></a>第一步 获取密钥库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//创建密钥库， 并将读取的证书导入密钥库 支持字符串导入 这里写的是文件路径</span><br><span class="line">//KeyStore不支持JKS类型 已试验 PKCS12 没问题</span><br><span class="line">//load 第二个参数是密码 这里设置的为null</span><br><span class="line">AssetManager am = context.getAssets();  </span><br><span class="line">InputStream ins = am.open(&quot;cepath&quot;);  </span><br><span class="line">InputStream ins = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            ins = am.open(&quot;&quot;);</span><br><span class="line">            CertificateFactory cerFactory = CertificateFactory.getInstance(&quot;X.509&quot;);</span><br><span class="line">            Certificate cer = cerFactory.generateCertificate(ins);</span><br><span class="line">            KeyStore keyStore = KeyStore.getInstance(&quot;PKCS12&quot;, &quot;BC&quot;);</span><br><span class="line">            keyStore.load(null, null);</span><br><span class="line">            keyStore.setCertificateEntry(&quot;trust&quot;, cer);</span><br><span class="line">            return keyStore;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            ins.close();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/15/20160715/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/04/20160604/" itemprop="url">
                   awesome-python3-webapp
                 </a>
@@ -727,7 +860,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -799,7 +932,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

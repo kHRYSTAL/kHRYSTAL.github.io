@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android,Java," />
+  <meta name="keywords" content="Android,program," />
 
 
 
@@ -86,19 +86,19 @@
 
 
 
-<meta name="description" content="需求: 没有Adapter 之前都是用的String 现在要求使用泛型POJO但是代码中有需要泛型实例化的部分工程中所有的Bean都是Serializable序列化的 与Parcelable不冲突
-12345678910111213141516171819202122public class TagGroup&amp;lt;T extends TagGroup.TagAble&amp;gt; extends Vi">
+<meta name="description" content="webView 使用客户端内置资源 需要调用shouldInterceptRequest(WebView view, String url)方法但5.0版本后新增shouldInterceptRequest(WebView view, WebResourceRequest request)方法与废弃方法参数不同 且request.getUrl()方法必须api在21以上
+shouldInterce">
 <meta property="og:type" content="article">
-<meta property="og:title" content="泛型实例化">
-<meta property="og:url" content="http://baladuu.com/2016/12/29/20161229/index.html">
+<meta property="og:title" content="android WebView使用内置资源">
+<meta property="og:url" content="http://baladuu.com/2017/06/07/20170607/index.html">
 <meta property="og:site_name" content="造轮子">
-<meta property="og:description" content="需求: 没有Adapter 之前都是用的String 现在要求使用泛型POJO但是代码中有需要泛型实例化的部分工程中所有的Bean都是Serializable序列化的 与Parcelable不冲突
-12345678910111213141516171819202122public class TagGroup&amp;lt;T extends TagGroup.TagAble&amp;gt; extends Vi">
-<meta property="og:updated_time" content="2016-12-29T03:07:45.000Z">
+<meta property="og:description" content="webView 使用客户端内置资源 需要调用shouldInterceptRequest(WebView view, String url)方法但5.0版本后新增shouldInterceptRequest(WebView view, WebResourceRequest request)方法与废弃方法参数不同 且request.getUrl()方法必须api在21以上
+shouldInterce">
+<meta property="og:updated_time" content="2017-06-07T07:20:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="泛型实例化">
-<meta name="twitter:description" content="需求: 没有Adapter 之前都是用的String 现在要求使用泛型POJO但是代码中有需要泛型实例化的部分工程中所有的Bean都是Serializable序列化的 与Parcelable不冲突
-12345678910111213141516171819202122public class TagGroup&amp;lt;T extends TagGroup.TagAble&amp;gt; extends Vi">
+<meta name="twitter:title" content="android WebView使用内置资源">
+<meta name="twitter:description" content="webView 使用客户端内置资源 需要调用shouldInterceptRequest(WebView view, String url)方法但5.0版本后新增shouldInterceptRequest(WebView view, WebResourceRequest request)方法与废弃方法参数不同 且request.getUrl()方法必须api在21以上
+shouldInterce">
 
 
 
@@ -116,7 +116,7 @@
   };
 </script>
 
-  <title> 泛型实例化 | 造轮子 </title>
+  <title> android WebView使用内置资源 | 造轮子 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -296,7 +296,7 @@
             
             
               
-                泛型实例化
+                android WebView使用内置资源
               
             
           </h1>
@@ -308,8 +308,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-29T11:04:01+08:00" content="2016-12-29">
-              2016-12-29
+            <time itemprop="dateCreated" datetime="2017-06-07T15:12:06+08:00" content="2017-06-07">
+              2017-06-07
             </time>
           </span>
 
@@ -338,8 +338,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/12/29/20161229/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/29/20161229/" itemprop="commentsCount"></span>
+                <a href="/2017/06/07/20170607/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/07/20170607/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -349,7 +349,7 @@
 
           
           
-             <span id="/2016/12/29/20161229/" class="leancloud_visitors" data-flag-title="泛型实例化">
+             <span id="/2017/06/07/20170607/" class="leancloud_visitors" data-flag-title="android WebView使用内置资源">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -371,8 +371,12 @@
       
 
       
-        <p>需求: 没有Adapter 之前都是用的String 现在要求使用泛型POJO<br>但是代码中有需要泛型实例化的部分<br>工程中所有的Bean都是Serializable序列化的 与Parcelable不冲突</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class TagGroup&lt;T extends TagGroup.TagAble&gt; extends ViewGroup &#123;</span><br><span class="line"></span><br><span class="line">    public interface TagAble extends Parcelable &#123;</span><br><span class="line">        public String id();</span><br><span class="line">        public String name();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Class&lt;T&gt; clazz;</span><br><span class="line"></span><br><span class="line">    public void setClazz(Class&lt;T&gt; clazz) &#123;</span><br><span class="line">        this.clazz = clazz;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private T getInstanceOfT()</span><br><span class="line">            throws InstantiationException, IllegalAccessException &#123;</span><br><span class="line">        return clazz.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">    private T[] getArrayInstanceOfT(int s) &#123;</span><br><span class="line">        return (T[]) Array.newInstance(clazz, s);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        <p>webView 使用客户端内置资源 需要调用<code>shouldInterceptRequest(WebView view, String url)</code>方法<br>但5.0版本后新增<code>shouldInterceptRequest(WebView view, WebResourceRequest request)</code>方法<br>与废弃方法参数不同 且<code>request.getUrl()</code>方法必须api在21以上</p>
+<p><code>shouldInterceptRequest(WebView view, WebResourceRequest request)</code> super中会调用<br><code>shouldInterceptRequest(WebView view, String url)</code> 因此直接在废弃的方法中实现即可</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 拦截字体库url 替换为本地ttf文件</span><br><span class="line"> */</span><br><span class="line">@Override</span><br><span class="line">public WebResourceResponse shouldInterceptRequest(WebView view, String url) &#123;</span><br><span class="line">    WebResourceResponse response = null;</span><br><span class="line">    if (!StringUtil.isNullOrEmpty(url) &amp;&amp; url.contains(&quot;SongTi.ttf&quot;)) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            InputStream localCopy = context.getAssets().open(FontsUtil.PATH_SONG_TI);</span><br><span class="line">            if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</span><br><span class="line">                int statusCode = 200;</span><br><span class="line">                String reasonPhase = &quot;OK&quot;;</span><br><span class="line">                Map&lt;String, String&gt; responseHeaders = new HashMap&lt;String, String&gt;();</span><br><span class="line">                responseHeaders.put(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</span><br><span class="line">                response = new WebResourceResponse(&quot;application/x-font-ttf&quot;, &quot;UTF-8&quot;, statusCode, reasonPhase, responseHeaders, localCopy);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                response = new WebResourceResponse(&quot;application/x-font-ttf&quot;, &quot;UTF-8&quot;, localCopy);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            MLog.e(TAG, &quot;shouldInterceptRequest:&quot;, e, e.getMessage());</span><br><span class="line">            response = super.shouldInterceptRequest(view, url);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        response = super.shouldInterceptRequest(view, url);</span><br><span class="line">    &#125;</span><br><span class="line">    return response;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意需要区分当前系统版本， 5.0以上webview需要增加header和statusCode 否则认为响应失败</p>
+
       
     </div>
 
@@ -395,7 +399,7 @@
           
             <a href="/tags/Android/" rel="tag">#Android</a>
           
-            <a href="/tags/Java/" rel="tag">#Java</a>
+            <a href="/tags/program/" rel="tag">#program</a>
           
         </div>
       
@@ -404,17 +408,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/23/20160923/" rel="next" title="React Native 踩坑之旅">
-                <i class="fa fa-chevron-left"></i> React Native 踩坑之旅
+              <a href="/2016/12/29/20161229/" rel="next" title="泛型实例化">
+                <i class="fa fa-chevron-left"></i> 泛型实例化
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/07/20170607/" rel="prev" title="android WebView使用内置资源">
-                android WebView使用内置资源 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -466,8 +466,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/12/29/20161229/"
-           data-title="泛型实例化" data-url="http://baladuu.com/2016/12/29/20161229/">
+      <div class="ds-thread" data-thread-key="2017/06/07/20170607/"
+           data-title="android WebView使用内置资源" data-url="http://baladuu.com/2017/06/07/20170607/">
       </div>
     
   </div>

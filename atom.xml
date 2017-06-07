@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2016-12-29T03:07:45.000Z</updated>
+  <updated>2017-06-07T07:20:26.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -14,6 +14,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>android WebView使用内置资源</title>
+    <link href="http://baladuu.com/2017/06/07/20170607/"/>
+    <id>http://baladuu.com/2017/06/07/20170607/</id>
+    <published>2017-06-07T07:12:06.000Z</published>
+    <updated>2017-06-07T07:20:26.000Z</updated>
+    
+    <content type="html">&lt;p&gt;webView 使用客户端内置资源 需要调用&lt;code&gt;shouldInterceptRequest(WebView view, String url)&lt;/code&gt;方法&lt;br&gt;但5.0版本后新增&lt;code&gt;shouldInterceptRequest(WebView view, WebResourceRequest request)&lt;/code&gt;方法&lt;br&gt;与废弃方法参数不同 且&lt;code&gt;request.getUrl()&lt;/code&gt;方法必须api在21以上&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;shouldInterceptRequest(WebView view, WebResourceRequest request)&lt;/code&gt; super中会调用&lt;br&gt;&lt;code&gt;shouldInterceptRequest(WebView view, String url)&lt;/code&gt; 因此直接在废弃的方法中实现即可&lt;/p&gt;
+&lt;p&gt;示例:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 拦截字体库url 替换为本地ttf文件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@Override&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public WebResourceResponse shouldInterceptRequest(WebView view, String url) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    WebResourceResponse response = null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (!StringUtil.isNullOrEmpty(url) &amp;amp;&amp;amp; url.contains(&amp;quot;SongTi.ttf&amp;quot;)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            InputStream localCopy = context.getAssets().open(FontsUtil.PATH_SONG_TI);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            if (Build.VERSION.SDK_INT &amp;gt;= Build.VERSION_CODES.LOLLIPOP) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                int statusCode = 200;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                String reasonPhase = &amp;quot;OK&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                Map&amp;lt;String, String&amp;gt; responseHeaders = new HashMap&amp;lt;String, String&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                responseHeaders.put(&amp;quot;Access-Control-Allow-Origin&amp;quot;, &amp;quot;*&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                response = new WebResourceResponse(&amp;quot;application/x-font-ttf&amp;quot;, &amp;quot;UTF-8&amp;quot;, statusCode, reasonPhase, responseHeaders, localCopy);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                response = new WebResourceResponse(&amp;quot;application/x-font-ttf&amp;quot;, &amp;quot;UTF-8&amp;quot;, localCopy);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; catch (Exception e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            MLog.e(TAG, &amp;quot;shouldInterceptRequest:&amp;quot;, e, e.getMessage());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            response = super.shouldInterceptRequest(view, url);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        response = super.shouldInterceptRequest(view, url);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return response;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;需要注意需要区分当前系统版本， 5.0以上webview需要增加header和statusCode 否则认为响应失败&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;webView 使用客户端内置资源 需要调用&lt;code&gt;shouldInterceptRequest(WebView view, String url)&lt;/code&gt;方法&lt;br&gt;但5.0版本后新增&lt;code&gt;shouldInterceptRequest(WebView vi
+    
+    </summary>
+    
+      <category term="Android" scheme="http://baladuu.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://baladuu.com/tags/Android/"/>
+    
+      <category term="program" scheme="http://baladuu.com/tags/program/"/>
+    
+  </entry>
   
   <entry>
     <title>泛型实例化</title>
