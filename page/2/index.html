@@ -295,6 +295,160 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/13/20160913/" itemprop="url">
+                  Android so文件冲突与缺失解决
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-13T12:00:18+08:00" content="2016-09-13">
+              2016-09-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/13/20160913/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/13/20160913/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/13/20160913/" class="leancloud_visitors" data-flag-title="Android so文件冲突与缺失解决">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="项目文件"><a href="#项目文件" class="headerlink" title="项目文件"></a>项目文件</h4><ul>
+<li><p>高德地图 </p>
+<p>  高德地图so并不是全平台的 只有armeabi文件夹 其中3D地图so文件可以按32位 64位放到其他平台文件夹中<br>  但是导航只能放到armeabi中(官方文档说明)</p>
+</li>
+<li><p>极光推送</p>
+<p>  极光推送so为全平台    </p>
+</li>
+<li><p>融云</p>
+<p>  融云so为全平台</p>
+</li>
+</ul>
+<h4 id="问题复现-测试机器三星s6"><a href="#问题复现-测试机器三星s6" class="headerlink" title="问题复现 测试机器三星s6"></a>问题复现 测试机器三星s6</h4><p>不考虑 x86(模拟器) mips(平板)架构前提下, 单只说armeabi。</p>
+<ol>
+<li><p>若遵循最少原则 只保留armeabi文件夹，按理说应该64位兼容32位，但是在64位机型编译后直接报错找不到jpush。</p>
+</li>
+<li><p>当把3D地图 导航拷贝到v7-a v8-a文件夹后，再次编译 报jpush.service.n.b()报空指针 不能启动极光PushService。</p>
+</li>
+<li><p>若去掉高德sdk,保留极光推送与融云SDK正常。</p>
+</li>
+<li><p>若只保留高德sdk,导航在armeabi下正常 拷贝到armeabi-v7a -v8a 导航错误 3D地图正常。</p>
+</li>
+<li><p>若只去掉融云，保留高德与jpush，同1。</p>
+</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/13/20160913/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/15/20160715/" itemprop="url">
                   android上进行https请求
                 </a>
@@ -848,7 +1002,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -865,7 +1019,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

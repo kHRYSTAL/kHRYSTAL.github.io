@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baladuu.com/"/>
-  <updated>2017-06-07T07:20:26.000Z</updated>
+  <updated>2019-11-25T05:59:00.000Z</updated>
   <id>http://baladuu.com/</id>
   
   <author>
@@ -14,6 +14,73 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gradle 5.x升级 项目配置与Jenkins配置升级</title>
+    <link href="http://baladuu.com/2019/11/25/20191125/"/>
+    <id>http://baladuu.com/2019/11/25/20191125/</id>
+    <published>2019-11-25T04:55:50.000Z</published>
+    <updated>2019-11-25T05:59:00.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;开发机升级&quot;&gt;&lt;a href=&quot;#开发机升级&quot; class=&quot;headerlink&quot; title=&quot;开发机升级&quot;&gt;&lt;/a&gt;开发机升级&lt;/h3&gt;&lt;h4 id=&quot;升级前版本&quot;&gt;&lt;a href=&quot;#升级前版本&quot; class=&quot;headerlink&quot; title=&quot;升级前版本&quot;&gt;&lt;/a&gt;升级前版本&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Android Studio 3.5&lt;/li&gt;
+&lt;li&gt;gradle 3.3 gradle tools 2.2.4&lt;/li&gt;
+&lt;li&gt;jdk 1.7&lt;/li&gt;
+&lt;li&gt;wrapper 2.14.1(同Jenkins配置)&lt;/li&gt;
+&lt;li&gt;targetSdkVersion 26,buildToolsVersion 26.0.3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;升级后版本&quot;&gt;&lt;a href=&quot;#升级后版本&quot; class=&quot;headerlink&quot; title=&quot;升级后版本&quot;&gt;&lt;/a&gt;升级后版本&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Android Studio 3.5&lt;/li&gt;
+&lt;li&gt;gradle 5.4.1 gradle tools 3.5.0&lt;/li&gt;
+&lt;li&gt;jdk 1.8&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;wrapper 2.14.1(同Jenkins配置)&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;targetSdkVersion 26,buildToolsVersion 26.0.3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot; title=&quot;起因&quot;&gt;&lt;/a&gt;起因&lt;/h4&gt;&lt;p&gt;与第三方sdk对接&lt;br&gt;在客户端版本下build不能通过&lt;br&gt;错误提示(实际就是dex打包时出错中断 网上除了说内存不足查不到其他导致该问题原因)&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Cause: java.lang.UnsupportedOperationException&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;加大jvm内存配置至6144, 仍然报错&lt;br&gt;错误提示(实际就是dex打包时出错中断 网上除了multiDex查不到其他导致该问题原因)&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Return code 1 for dex process&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;但multiDex已经开启 aar在demo下也没有问题 反编译也未发现冲突 且aar包编译已经成功&lt;br&gt;通过排除发现需要升级jdk 与 gradle, 对方提供的aar包使用jdk1.8编译&lt;br&gt;demo的gradle 5.4.1 gradle tools 3.5.0 &lt;/p&gt;
+&lt;p&gt;在主工程build.gradle 设置&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;compileOptions &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sourceCompatibility JavaVersion.VERSION_1_8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        targetCompatibility JavaVersion.VERSION_1_8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;需要配合&lt;code&gt;jackOptions&lt;/code&gt;闭包, 配置&lt;code&gt;jackOptions&lt;/code&gt;需要删除apt项目依赖与闭包配置&lt;br&gt;删除后发现butterknife版本过老(5.1.2), 仍须使用apt, 因为改动范围过大不想替换&lt;br&gt;在查阅外网论坛后发现 添加 &lt;code&gt;annotationProcessor&lt;/code&gt;相同依赖即可&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;implementation rootProject.butterknife&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;annotationProcessor rootProject.butterknife&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;升级1.8后编译仍不通过 原因怀疑与gradle项目构建时版本的兼容性有关&lt;/p&gt;
+&lt;p&gt;直接升级gradle至5.4.1 gradle tools 3.5.0&lt;/p&gt;
+&lt;p&gt;既而删除&lt;code&gt;jackOptions&lt;/code&gt; 替换传递性依赖 构建变体新增维度 &lt;/p&gt;
+&lt;p&gt;删除root build.gradle 的 task wrapper (由于重名报错)&lt;/p&gt;
+&lt;p&gt;编译成功 编译速度明显加快&lt;/p&gt;
+&lt;p&gt;在打release包时 发现编译不通过 关闭R8混淆, 在gradle.properties新增&lt;code&gt;android.enableR8=false&lt;/code&gt;&lt;br&gt;编译成功&lt;/p&gt;
+&lt;h3 id=&quot;Jenkins配置升级&quot;&gt;&lt;a href=&quot;#Jenkins配置升级&quot; class=&quot;headerlink&quot; title=&quot;Jenkins配置升级&quot;&gt;&lt;/a&gt;Jenkins配置升级&lt;/h3&gt;&lt;p&gt;由于Jenkins配置的仍未老版本gradle, 构建的&lt;code&gt;Invoke Gradle script&lt;/code&gt;勾选的是&lt;code&gt;Invoke Gradle&lt;/code&gt; 指定版本是2.14.1 因为开发机task wrapper已经删除了 所以直接勾选了&lt;br&gt;&lt;code&gt;Use Gradle Wrapper&lt;/code&gt;-&lt;code&gt;From Root Build Script Dir&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;开始构建 自动下载gradle 5.4.1 下载后开始构建&lt;br&gt;报错:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Caused by: com.android.builder.errors.EvalIssueException: Failed to install the following Android SDK packages as some licences have not been accepted.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   build-tools;28.0.3 Android SDK Build-Tools 28.0.3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;To build this project, accept the SDK license agreements and install the missing components using the Android Studio SDK Manager.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Alternatively, to transfer the license agreements from one workstation to another, see http://d.android.com/r/studio-ui/export-licenses.html&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Using Android SDK: /usr/local/android-sdk-linux&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	at com.android.build.gradle.internal.SdkHandler.initTarget(SdkHandler.java:128)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;提示需要下载 28.0.3 build tools 并同意协议(dont no why), 然后提示需要使用SDKManager,&lt;br&gt;但构建机器为centOS 并不存在SDKManager, 直接使用网上查询使用&lt;br&gt;&lt;code&gt;sudo /usr/local/android-sdk-linux/tools/android&lt;/code&gt; 可以生成&lt;/p&gt;
+&lt;p&gt;执行命令后 报错提示&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Exception in thread &amp;quot;main&amp;quot; java.lang.UnsatisfiedLinkError: no swt-pi-gtk-3550 or swt-pi-gtk in swt.library.path, java.library.path or the jar file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.eclipse.swt.internal.Library.loadLibrary(Unknown Source)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.eclipse.swt.internal.Library.loadLibrary(Unknown Source)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.eclipse.swt.internal.gtk.OS.&amp;lt;clinit&amp;gt;(Unknown Source)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.eclipse.swt.internal.Converter.wcsToMbcs(Unknown Source)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.eclipse.swt.internal.Converter.wcsToMbcs(Unknown Source)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.eclipse.swt.widgets.Display.&amp;lt;clinit&amp;gt;(Unknown Source)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at com.android.sdkmanager.Main.showSdkManagerWindow(Main.java:403)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at com.android.sdkmanager.Main.doAction(Main.java:391)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at com.android.sdkmanager.Main.run(Main.java:151)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at com.android.sdkmanager.Main.main(Main.java:117)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;查询这两个包均为控制图形界面显示的so 但是构建机器也不需要图形界面, 根据查阅配置了tmp软链接&lt;br&gt;仍旧报错 无效&lt;br&gt;已知目的是为了下载build tools&lt;/p&gt;
+&lt;p&gt;随后直接通过 &lt;code&gt;./android update sdk -u -a -t 6&lt;/code&gt; (6是通过&lt;code&gt;./android list sdk --all&lt;/code&gt;查询的序号)进行下载&lt;/p&gt;
+&lt;p&gt;在下载前会有提示 该提示即为同意的协议&lt;/p&gt;
+&lt;p&gt;下载成功后 在Jenkins上编译成功 apk已生成 但构建后shell复制到其他服务区 找不到文件&lt;br&gt;实际上gradle升级后路径新增了release和debug文件夹和productFlavors(如果存在)文件夹区分&lt;br&gt;&lt;code&gt;Execute shell&lt;/code&gt;修改路径, 从&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;scp $&amp;#123;WORKSPACE&amp;#125;/zhisland/build/outputs/apk/xxx-qaenv-release.apk root@xx.xx.xx.xx:/www/web/root/apk/xxx/QA$&amp;#123;BUILD_NUMBER&amp;#125;.apk&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;改为&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;scp $&amp;#123;WORKSPACE&amp;#125;/zhisland/build/outputs/apk//qaenv/release/xxx-qaenv-release.apk root@xx.xx.xx.xx:/www/web/root/apk/xxx/QA$&amp;#123;BUILD_NUMBER&amp;#125;.apk&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;至此完成所有配置&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;开发机升级&quot;&gt;&lt;a href=&quot;#开发机升级&quot; class=&quot;headerlink&quot; title=&quot;开发机升级&quot;&gt;&lt;/a&gt;开发机升级&lt;/h3&gt;&lt;h4 id=&quot;升级前版本&quot;&gt;&lt;a href=&quot;#升级前版本&quot; class=&quot;headerlink&quot; title=&quot;升级前
+    
+    </summary>
+    
+      <category term="Android" scheme="http://baladuu.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://baladuu.com/tags/Android/"/>
+    
+      <category term="build tools" scheme="http://baladuu.com/tags/build-tools/"/>
+    
+  </entry>
   
   <entry>
     <title>android WebView使用内置资源</title>

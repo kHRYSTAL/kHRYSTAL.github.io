@@ -423,6 +423,177 @@
             
               
                 
+                <a class="post-title-link" href="/2019/11/25/20191125/" itemprop="url">
+                  gradle 5.x升级 项目配置与Jenkins配置升级
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-11-25T12:55:50+08:00" content="2019-11-25">
+              2019-11-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/11/25/20191125/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/11/25/20191125/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/11/25/20191125/" class="leancloud_visitors" data-flag-title="gradle 5.x升级 项目配置与Jenkins配置升级">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="开发机升级"><a href="#开发机升级" class="headerlink" title="开发机升级"></a>开发机升级</h3><h4 id="升级前版本"><a href="#升级前版本" class="headerlink" title="升级前版本"></a>升级前版本</h4><ul>
+<li>Android Studio 3.5</li>
+<li>gradle 3.3 gradle tools 2.2.4</li>
+<li>jdk 1.7</li>
+<li>wrapper 2.14.1(同Jenkins配置)</li>
+<li>targetSdkVersion 26,buildToolsVersion 26.0.3</li>
+</ul>
+<h4 id="升级后版本"><a href="#升级后版本" class="headerlink" title="升级后版本"></a>升级后版本</h4><ul>
+<li>Android Studio 3.5</li>
+<li>gradle 5.4.1 gradle tools 3.5.0</li>
+<li>jdk 1.8</li>
+<li><del>wrapper 2.14.1(同Jenkins配置)</del></li>
+<li>targetSdkVersion 26,buildToolsVersion 26.0.3</li>
+</ul>
+<h4 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h4><p>与第三方sdk对接<br>在客户端版本下build不能通过<br>错误提示(实际就是dex打包时出错中断 网上除了说内存不足查不到其他导致该问题原因)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cause: java.lang.UnsupportedOperationException</span><br></pre></td></tr></table></figure>
+<p>加大jvm内存配置至6144, 仍然报错<br>错误提示(实际就是dex打包时出错中断 网上除了multiDex查不到其他导致该问题原因)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Return code 1 for dex process</span><br></pre></td></tr></table></figure>
+<p>但multiDex已经开启 aar在demo下也没有问题 反编译也未发现冲突 且aar包编译已经成功<br>通过排除发现需要升级jdk 与 gradle, 对方提供的aar包使用jdk1.8编译<br>demo的gradle 5.4.1 gradle tools 3.5.0 </p>
+<p>在主工程build.gradle 设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">compileOptions &#123;</span><br><span class="line">        sourceCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">        targetCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>需要配合<code>jackOptions</code>闭包, 配置<code>jackOptions</code>需要删除apt项目依赖与闭包配置<br>删除后发现butterknife版本过老(5.1.2), 仍须使用apt, 因为改动范围过大不想替换<br>在查阅外网论坛后发现 添加 <code>annotationProcessor</code>相同依赖即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation rootProject.butterknife</span><br><span class="line">annotationProcessor rootProject.butterknife</span><br></pre></td></tr></table></figure>
+<p>升级1.8后编译仍不通过 原因怀疑与gradle项目构建时版本的兼容性有关</p>
+<p>直接升级gradle至5.4.1 gradle tools 3.5.0</p>
+<p>既而删除<code>jackOptions</code> 替换传递性依赖 构建变体新增维度 </p>
+<p>删除root build.gradle 的 task wrapper (由于重名报错)</p>
+<p>编译成功 编译速度明显加快</p>
+<p>在打release包时 发现编译不通过 关闭R8混淆, 在gradle.properties新增<code>android.enableR8=false</code><br>编译成功</p>
+<h3 id="Jenkins配置升级"><a href="#Jenkins配置升级" class="headerlink" title="Jenkins配置升级"></a>Jenkins配置升级</h3><p>由于Jenkins配置的仍未老版本gradle, 构建的<code>Invoke Gradle script</code>勾选的是<code>Invoke Gradle</code> 指定版本是2.14.1 因为开发机task wrapper已经删除了 所以直接勾选了<br><code>Use Gradle Wrapper</code>-<code>From Root Build Script Dir</code></p>
+<p>开始构建 自动下载gradle 5.4.1 下载后开始构建<br>报错:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Caused by: com.android.builder.errors.EvalIssueException: Failed to install the following Android SDK packages as some licences have not been accepted.</span><br><span class="line">   build-tools;28.0.3 Android SDK Build-Tools 28.0.3</span><br><span class="line">To build this project, accept the SDK license agreements and install the missing components using the Android Studio SDK Manager.</span><br><span class="line">Alternatively, to transfer the license agreements from one workstation to another, see http://d.android.com/r/studio-ui/export-licenses.html</span><br><span class="line"></span><br><span class="line">Using Android SDK: /usr/local/android-sdk-linux</span><br><span class="line">	at com.android.build.gradle.internal.SdkHandler.initTarget(SdkHandler.java:128)</span><br></pre></td></tr></table></figure>
+<p>提示需要下载 28.0.3 build tools 并同意协议(dont no why), 然后提示需要使用SDKManager,<br>但构建机器为centOS 并不存在SDKManager, 直接使用网上查询使用<br><code>sudo /usr/local/android-sdk-linux/tools/android</code> 可以生成</p>
+<p>执行命令后 报错提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.UnsatisfiedLinkError: no swt-pi-gtk-3550 or swt-pi-gtk in swt.library.path, java.library.path or the jar file</span><br><span class="line">        at org.eclipse.swt.internal.Library.loadLibrary(Unknown Source)</span><br><span class="line">        at org.eclipse.swt.internal.Library.loadLibrary(Unknown Source)</span><br><span class="line">        at org.eclipse.swt.internal.gtk.OS.&lt;clinit&gt;(Unknown Source)</span><br><span class="line">        at org.eclipse.swt.internal.Converter.wcsToMbcs(Unknown Source)</span><br><span class="line">        at org.eclipse.swt.internal.Converter.wcsToMbcs(Unknown Source)</span><br><span class="line">        at org.eclipse.swt.widgets.Display.&lt;clinit&gt;(Unknown Source)</span><br><span class="line">        at com.android.sdkmanager.Main.showSdkManagerWindow(Main.java:403)</span><br><span class="line">        at com.android.sdkmanager.Main.doAction(Main.java:391)</span><br><span class="line">        at com.android.sdkmanager.Main.run(Main.java:151)</span><br><span class="line">        at com.android.sdkmanager.Main.main(Main.java:117)</span><br></pre></td></tr></table></figure>
+<p>查询这两个包均为控制图形界面显示的so 但是构建机器也不需要图形界面, 根据查阅配置了tmp软链接<br>仍旧报错 无效<br>已知目的是为了下载build tools</p>
+<p>随后直接通过 <code>./android update sdk -u -a -t 6</code> (6是通过<code>./android list sdk --all</code>查询的序号)进行下载</p>
+<p>在下载前会有提示 该提示即为同意的协议</p>
+<p>下载成功后 在Jenkins上编译成功 apk已生成 但构建后shell复制到其他服务区 找不到文件<br>实际上gradle升级后路径新增了release和debug文件夹和productFlavors(如果存在)文件夹区分<br><code>Execute shell</code>修改路径, 从</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp $&#123;WORKSPACE&#125;/zhisland/build/outputs/apk/xxx-qaenv-release.apk root@xx.xx.xx.xx:/www/web/root/apk/xxx/QA$&#123;BUILD_NUMBER&#125;.apk</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp $&#123;WORKSPACE&#125;/zhisland/build/outputs/apk//qaenv/release/xxx-qaenv-release.apk root@xx.xx.xx.xx:/www/web/root/apk/xxx/QA$&#123;BUILD_NUMBER&#125;.apk</span><br></pre></td></tr></table></figure>
+<p>至此完成所有配置</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/06/07/20170607/" itemprop="url">
                   android WebView使用内置资源
                 </a>
@@ -799,160 +970,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/13/20160913/" itemprop="url">
-                  Android so文件冲突与缺失解决
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-13T12:00:18+08:00" content="2016-09-13">
-              2016-09-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/13/20160913/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/13/20160913/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/09/13/20160913/" class="leancloud_visitors" data-flag-title="Android so文件冲突与缺失解决">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="项目文件"><a href="#项目文件" class="headerlink" title="项目文件"></a>项目文件</h4><ul>
-<li><p>高德地图 </p>
-<p>  高德地图so并不是全平台的 只有armeabi文件夹 其中3D地图so文件可以按32位 64位放到其他平台文件夹中<br>  但是导航只能放到armeabi中(官方文档说明)</p>
-</li>
-<li><p>极光推送</p>
-<p>  极光推送so为全平台    </p>
-</li>
-<li><p>融云</p>
-<p>  融云so为全平台</p>
-</li>
-</ul>
-<h4 id="问题复现-测试机器三星s6"><a href="#问题复现-测试机器三星s6" class="headerlink" title="问题复现 测试机器三星s6"></a>问题复现 测试机器三星s6</h4><p>不考虑 x86(模拟器) mips(平板)架构前提下, 单只说armeabi。</p>
-<ol>
-<li><p>若遵循最少原则 只保留armeabi文件夹，按理说应该64位兼容32位，但是在64位机型编译后直接报错找不到jpush。</p>
-</li>
-<li><p>当把3D地图 导航拷贝到v7-a v8-a文件夹后，再次编译 报jpush.service.n.b()报空指针 不能启动极光PushService。</p>
-</li>
-<li><p>若去掉高德sdk,保留极光推送与融云SDK正常。</p>
-</li>
-<li><p>若只保留高德sdk,导航在armeabi下正常 拷贝到armeabi-v7a -v8a 导航错误 3D地图正常。</p>
-</li>
-<li><p>若只去掉融云，保留高德与jpush，同1。</p>
-</li>
-</ol>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/13/20160913/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -998,7 +1015,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1015,7 +1032,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
